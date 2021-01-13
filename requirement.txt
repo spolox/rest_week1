@@ -5,6 +5,7 @@ attrs==20.3.0
 cognitive-complexity==1.2.0
 colorama==0.4.4
 Django==3.1.5
+django-phonenumber-field==5.0.0
 djangorestframework==3.12.2
 eradicate==2.0.0
 flake8==3.8.4
@@ -25,6 +26,8 @@ iniconfig==1.1.1
 mccabe==0.6.1
 packaging==20.8
 pep8-naming==0.11.1
+phonenumbers==8.12.16
+Pillow==8.1.0
 pluggy==0.13.1
 py==1.10.0
 pycodestyle==2.6.0
