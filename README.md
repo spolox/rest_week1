@@ -1,6 +1,6 @@
 # rest_week1
 
-Homework of week1 for stepik
+Homework of week1 for course `Django REST Framework`
 
 
 ##Installation
