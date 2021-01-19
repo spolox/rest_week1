@@ -13,7 +13,7 @@ Install the pip packages:
 
 `Users`
 
-For import `users` use next commands:
+For import `users` use next command:
 
 ```python manage.py import_users [-s source]```
 
@@ -21,7 +21,7 @@ Default `source` is https://raw.githubusercontent.com/stepik-a-w/drf-project-box
 
 `Items`
 
-For import `items` use next commands:
+For import `items` use next command:
 
 ```python manage.py import_items [-s source]```
 
@@ -29,7 +29,7 @@ Default `source` is https://raw.githubusercontent.com/stepik-a-w/drf-project-box
 
 `Reviews`
 
-For import `reviews` use next commands:
+For import `reviews` use next command:
 
 ```python manage.py import_reviews [-s source]```
 
