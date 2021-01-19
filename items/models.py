@@ -14,7 +14,17 @@ class Item(models.Model):
     picture_width_field = models.PositiveIntegerField(default=0)
 
     weight = models.IntegerField()
-    price = models.DecimalField()
+    price = models.DecimalField(decimal_places=2, max_digits=8)
 
     def __str__(self):
         return self.title
+
+    def as_json(self):
+        return {
+            "id": self.pk,
+            "title": self.title,
+            "description": self.description,
+            "image": self.image.url,
+            "weight": self.weight,
+            "price": self.price,
+        }

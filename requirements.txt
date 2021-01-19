@@ -2,9 +2,12 @@ asgiref==3.3.1
 astpretty==2.1.0
 atomicwrites==1.4.0
 attrs==20.3.0
+certifi==2020.12.5
+chardet==4.0.0
 cognitive-complexity==1.2.0
 colorama==0.4.4
 Django==3.1.5
+django-cleanup==5.1.0
 django-phonenumber-field==5.0.0
 djangorestframework==3.12.2
 eradicate==2.0.0
@@ -20,9 +23,10 @@ flake8-expression-complexity==0.0.8
 flake8-functions==0.0.4
 flake8-logging-format==0.6.0
 flake8-polyfill==1.0.2
-flake8-print==4.0.0
 flake8-variables-names==0.0.3
+idna==2.10
 iniconfig==1.1.1
+jsonschema==3.2.0
 mccabe==0.6.1
 packaging==20.8
 pep8-naming==0.11.1
@@ -33,8 +37,11 @@ py==1.10.0
 pycodestyle==2.6.0
 pyflakes==2.2.0
 pyparsing==2.4.7
+pyrsistent==0.17.3
 pytest==6.2.1
 pytz==2020.5
+requests==2.25.1
 six==1.15.0
 sqlparse==0.4.1
 toml==0.10.2
+urllib3==1.26.2
