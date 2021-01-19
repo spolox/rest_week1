@@ -9,7 +9,7 @@ Install the pip packages:
 
 ```pip install -r requirements.txt```
 
-## Usage
+## Management commands
 
 `Users`
 
