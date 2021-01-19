@@ -3,13 +3,13 @@
 Homework of week1 for course `Django REST Framework`
 
 
-##Installation
+## Installation
 
 Install the pip packages:
 
 ```pip install -r requirements.txt```
 
-##Usage
+## Usage
 
 `Users`
 
