@@ -44,7 +44,7 @@ class Command(BaseCommand):
 
     def check_item_exists(self, jitem):
         try:
-            Item.objects.filter(pk=jitem['id']).get()
+            Item.objects.get(pk=jitem['id'])
         except Item.DoesNotExist:
             return False
         return True

@@ -54,7 +54,7 @@ class Command(BaseCommand):
 
     def check_user_exists(self, juser):
         try:
-            User.objects.filter(pk=juser['id']).get()
+            User.objects.get(pk=juser['id'])
         except User.DoesNotExist:
             return False
         return True

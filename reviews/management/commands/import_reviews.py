@@ -46,7 +46,7 @@ class Command(BaseCommand):
 
     def check_object_exists(self, model, pk):
         try:
-            model.objects.filter(pk=pk).get()
+            model.objects.get(pk=pk)
         except model.DoesNotExist:
             return False
         return True
@@ -67,7 +67,7 @@ class Command(BaseCommand):
             try:
                 new_review = Review(
                     pk=jreview['id'],
-                    author=User.objects.filter(pk=jreview['author']).get(),
+                    author=User.objects.get(pk=jreview['author']),
                     text=jreview['content'],
                     created_at=self.get_time_created_at(jreview['created_at ']),
                     published_at=self.get_time_published_at(jreview['published_at']),
