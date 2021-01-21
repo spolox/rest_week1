@@ -18,13 +18,3 @@ class Item(models.Model):
 
     def __str__(self):
         return self.title
-
-    def as_json(self):
-        return {
-            "id": self.pk,
-            "title": self.title,
-            "description": self.description,
-            "image": self.image.url,
-            "weight": self.weight,
-            "price": self.price,
-        }
