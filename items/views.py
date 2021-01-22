@@ -15,7 +15,7 @@ def item_detail(request, pk):
         "description": item.description,
         "image": request.build_absolute_uri(item.image.url),
         "weight": item.weight,
-        "price": str(item.price),
+        "price": f'{item.price:.2f}',
     }
 
     return Response(item_as_json)
