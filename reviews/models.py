@@ -10,7 +10,7 @@ class Review(models.Model):
         NEW = 'new', _('На модерации')
         HIDDEN = 'hidden', _('Отклонен')
 
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='vacancies')
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     published_at = models.DateTimeField(blank=True, null=True, default=None)
