@@ -1,11 +1,11 @@
-from datetime import datetime
 import json
+from datetime import datetime
 
+import requests
+import jsonschema
 from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
 from django.utils import timezone
-import requests
-import jsonschema
 
 from reviews.models import Review
 from users.models import User
@@ -14,7 +14,7 @@ from users.models import User
 class Command(BaseCommand):
     BaseCommand.help = 'Import items from JSON data'
 
-    jreview_schema = {
+    json_review_schema = {
         "type": "object",
         "properties": {
             "id": {"type": "integer"},
@@ -35,21 +35,14 @@ class Command(BaseCommand):
             help='Choice source url with JSON data',
             default='https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/reviews.json')
 
-    def validation_review(self, jreview):
+    def validation_review(self, json_review):
         result = True
         try:
-            jsonschema.validate(jreview, schema=self.jreview_schema)
+            jsonschema.validate(json_review, schema=self.json_review_schema)
         except jsonschema.exceptions.ValidationError as ex:
             print(ex)
             result = False
         return result
-
-    def check_object_exists(self, model, pk):
-        try:
-            model.objects.get(pk=pk)
-        except model.DoesNotExist:
-            return False
-        return True
 
     def get_time_created_at(self, created_at):
         return timezone.make_aware(datetime.strptime(created_at, '%Y-%m-%d'))
@@ -61,34 +54,34 @@ class Command(BaseCommand):
             result = None
         return result
 
-    def create_review(self, jreview):
+    def create_review(self, json_review):
         result = True
-        if self.check_object_exists(User, jreview['author']):
+        if User.objects.filter(pk=json_review['author']).exists():
             try:
                 new_review = Review(
-                    pk=jreview['id'],
-                    author=User.objects.get(pk=jreview['author']),
-                    text=jreview['content'],
-                    created_at=self.get_time_created_at(jreview['created_at ']),
-                    published_at=self.get_time_published_at(jreview['published_at']),
-                    status=jreview['status'],
+                    pk=json_review['id'],
+                    author=User.objects.get(pk=json_review['author']),
+                    text=json_review['content'],
+                    created_at=self.get_time_created_at(json_review['created_at ']),
+                    published_at=self.get_time_published_at(json_review['published_at']),
+                    status=json_review['status'],
                 )
                 new_review.save()
             except (TypeError, IntegrityError) as ex:
                 print(ex)
                 result = False
         else:
-            print(f"Author with id={jreview['author']} doesn't exist")
+            print(f"Author with id={json_review['author']} doesn't exist")
             result = False
         return result
 
-    def import_data(self, jdata):
-        for jreview in jdata:
-            if self.validation_review(jreview):
-                print(f"Review id={jreview['id']} will be created")
-                if self.check_object_exists(Review, jreview['id']):
+    def import_data(self, json_data):
+        for json_review in json_data:
+            if self.validation_review(json_review):
+                print(f"Review id={json_review['id']} will be created")
+                if Review.objects.filter(pk=json_review['id']):
                     print('Review is exist. Created is cancelled')
-                elif self.create_review(jreview):
+                elif self.create_review(json_review):
                     print('Created is success')
                 else:
                     print('Created is failed')
@@ -99,10 +92,10 @@ class Command(BaseCommand):
         response = requests.get(options['source'])
         if response:
             try:
-                jdata = response.json()
+                json_data = response.json()
             except json.decoder.JSONDecodeError:
                 print("The received data isn't JSON data")
                 return
-            self.import_data(jdata)
+            self.import_data(json_data)
         else:
             print('An error has occurred')

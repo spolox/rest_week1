@@ -1,21 +1,20 @@
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
-from users.models import User
 
 
 class Review(models.Model):
     class StatusChoices(models.TextChoices):
-        PUBLISHED = 'published', _('Опубликован')
-        NEW = 'new', _('На модерации')
-        HIDDEN = 'hidden', _('Отклонен')
+        PUBLISHED = 'published', _('Published')
+        NEW = 'new', _('New')
+        HIDDEN = 'hidden', _('Hidden')
 
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     published_at = models.DateTimeField(blank=True, null=True, default=None)
     status = models.CharField(
-        max_length=10,
+        max_length=9,
         choices=StatusChoices.choices,
         default=StatusChoices.NEW,
     )
