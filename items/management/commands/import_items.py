@@ -3,7 +3,7 @@ import json
 from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
 from django.core.files import File
-from django.core.files.temp import TemporaryFile
+from django.core.files.temp import NamedTemporaryFile
 import requests
 import jsonschema
 
@@ -53,7 +53,7 @@ class Command(BaseCommand):
         result = True
         response_image = requests.get(jitem['image'])
         if response_image:
-            with TemporaryFile() as img_temp:
+            with NamedTemporaryFile() as img_temp:
                 img_temp.write(response_image.content)
                 filename = jitem['image'].split('/')[-1]
                 try:
