@@ -7,6 +7,8 @@ from django.db.utils import IntegrityError
 
 from users.models import User
 
+URL_DEFAULT_USERS = 'https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/recipients.json'
+
 
 class Command(BaseCommand):
     BaseCommand.help = 'Import users from JSON data'
@@ -41,7 +43,7 @@ class Command(BaseCommand):
             '--source',
             type=str,
             help='Choice source url with JSON data',
-            default='https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/recipients.json')
+            default=URL_DEFAULT_USERS)
 
     def validation_user(self, json_user):
         result = True

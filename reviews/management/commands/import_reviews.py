@@ -10,6 +10,8 @@ from django.utils import timezone
 from reviews.models import Review
 from users.models import User
 
+URL_DEFAULT_REVIEWS = 'https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/reviews.json'
+
 
 class Command(BaseCommand):
     BaseCommand.help = 'Import items from JSON data'
@@ -33,7 +35,7 @@ class Command(BaseCommand):
             '--source',
             type=str,
             help='Choice source url with JSON data',
-            default='https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/reviews.json')
+            default=URL_DEFAULT_REVIEWS)
 
     def validation_review(self, json_review):
         result = True

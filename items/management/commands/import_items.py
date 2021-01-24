@@ -9,6 +9,8 @@ from django.db.utils import IntegrityError
 
 from items.models import Item
 
+URL_DEFAULT_ITEMS = 'https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/foodboxes.json'
+
 
 class Command(BaseCommand):
     BaseCommand.help = 'Import items from JSON data'
@@ -31,7 +33,7 @@ class Command(BaseCommand):
             '--source',
             type=str,
             help='Choice source url with JSON data',
-            default='https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/foodboxes.json')
+            default=URL_DEFAULT_ITEMS)
 
     def validation_item(self, json_item):
         result = True
