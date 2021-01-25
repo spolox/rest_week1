@@ -1,8 +1,11 @@
 import json
+import pathlib
 
 import requests
 import jsonschema
+from django.conf import settings
 from django.core.files import File
+from django.core.files.storage import default_storage
 from django.core.files.temp import NamedTemporaryFile
 from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
@@ -51,12 +54,17 @@ class Command(BaseCommand):
             with NamedTemporaryFile() as img_temp:
                 img_temp.write(response_image.content)
                 filename = json_item['image'].split('/')[-1]
+                filepath_upload_to = pathlib.Path(settings.MEDIA_ITEMS_IMAGE_DIR, filename)
+                if pathlib.Path(default_storage.path(filepath_upload_to)).exists():
+                    image_upload = filepath_upload_to.as_posix()
+                else:
+                    image_upload = File(img_temp, filename)
                 try:
                     new_item = Item(
                         pk=json_item['id'],
                         title=json_item['title'],
                         description=json_item['description'],
-                        image=File(img_temp, filename),
+                        image=image_upload,
                         weight=json_item['weight_grams'],
                         price=json_item['price'],
                     )
