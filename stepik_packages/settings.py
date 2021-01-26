@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'phonenumber_field',
     'django_cleanup.apps.CleanupConfig',
+    'django_filters',
     'reviews',
     'users',
     'items',

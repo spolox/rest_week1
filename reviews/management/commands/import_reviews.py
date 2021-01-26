@@ -22,7 +22,7 @@ class Command(BaseCommand):
             "id": {"type": "integer"},
             "author": {"type": "integer"},
             "content": {"type": "string"},
-            "created_at ": {"type": "string"},
+            "created_at": {"type": "string"},
             "published_at": {"type": "string"},
             "status": {"type": "string"},
         },
