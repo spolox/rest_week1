@@ -10,12 +10,13 @@ from .serializers import CartSerializer, CartItemSerializer
 
 
 class CartViewSet(RetrieveModelMixin, GenericViewSet):
+    queryset = Cart.objects.all()
     serializer_class = CartSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get_object(self):
-        return Cart.objects.filter(user=self.request.user)
+        return get_object_or_404(Cart, user=self.request.user)
 
 
 class CartItemViewSet(ModelViewSet):
