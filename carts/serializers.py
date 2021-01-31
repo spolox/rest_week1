@@ -22,19 +22,19 @@ class CartItemSerializer(serializers.ModelSerializer):
             'total_price': {'read_only': True},
         }
 
-    def get_total_price(self, cartitem):
-        return f'{cartitem.price * cartitem.quantity:.2f}'
+    def get_total_price(self, obj):
+        return f'{obj.price * obj.quantity:.2f}'
 
     def create(self, validated_data):
         cart, _ = Cart.objects.get_or_create(user=self.context['request'].user)
-        cartitem = CartItem(
+        cart_item = CartItem(
             item=validated_data['item'],
             quantity=validated_data['quantity'],
             price=validated_data['item'].price,
             cart=cart,
         )
-        cartitem.save()
-        return cartitem
+        cart_item.save()
+        return cart_item
 
     def update(self, instance, validated_data):
         for attr, value in validated_data.items():
@@ -47,7 +47,7 @@ class CartItemSerializer(serializers.ModelSerializer):
 
 class CartSerializer(serializers.ModelSerializer):
     total_cost = serializers.SerializerMethodField('get_total_cost')
-    items = CartItemSerializer(source='cartitem_set', many=True)
+    items = CartItemSerializer(source='cart_items', many=True)
 
     class Meta:
         model = Cart
@@ -56,8 +56,8 @@ class CartSerializer(serializers.ModelSerializer):
             'id': {'read_only': True},
         }
 
-    def get_total_cost(self, cart):
+    def get_total_cost(self, obj):
         total_cost = 0
-        for cartitem in cart.cartitem_set.all():
-            total_cost += cartitem.price * cartitem.quantity
+        for cart_item in obj.cart_items.all():
+            total_cost += cart_item.price * cart_item.quantity
         return f'{total_cost:.2f}'
