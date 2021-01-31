@@ -65,7 +65,7 @@ class Command(BaseCommand):
                 first_name=json_user['info']['name'],
                 last_name=json_user['info']['surname'],
                 middle_name=json_user['info']['patronymic'],
-                phone_number=json_user['contacts']['phoneNumber'],
+                phone=json_user['contacts']['phoneNumber'],
                 address=json_user['city_kladr'],
             )
             new_user.set_password(json_user['password'])
