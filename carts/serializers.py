@@ -6,7 +6,7 @@ from items.serializers import ItemSerializer
 
 
 class CartItemSerializer(serializers.ModelSerializer):
-    item = ItemSerializer(required=False)
+    item = ItemSerializer(read_only=True)
     item_id = serializers.PrimaryKeyRelatedField(source='item', queryset=Item.objects.all())
     total_price = serializers.SerializerMethodField('get_total_price')
 
@@ -16,6 +16,7 @@ class CartItemSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'id': {'read_only': True},
             'item': {'read_only': True},
+            'item_id': {'required': True},
             'quantity': {'required': True},
             'price': {'read_only': True},
             'total_price': {'read_only': True},
