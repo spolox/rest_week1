@@ -12,7 +12,7 @@ urlpatterns = [
                 'post': 'create',
             },
             name='items',
-        )
+        ),
     ),
     path(
         r'items/<int:pk>',
@@ -23,7 +23,7 @@ urlpatterns = [
                 'patch': 'partial_update',
                 'delete': 'destroy',
             },
-            name='items-detail'
-        )
+            name='items-detail',
+        ),
     ),
 ]

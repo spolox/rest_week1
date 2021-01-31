@@ -30,7 +30,7 @@ class CartItemSerializer(serializers.ModelSerializer):
             item=validated_data['item'],
             quantity=validated_data['quantity'],
             price=validated_data['item'].price,
-            cart=cart
+            cart=cart,
         )
         cartitem.save()
         return cartitem
