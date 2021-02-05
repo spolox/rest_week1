@@ -144,3 +144,5 @@ MEDIA_URL = '/media/'
 MEDIA_ITEMS_IMAGE_DIR = 'items'
 
 AUTH_USER_MODEL = 'users.User'
+
+APPEND_SLASH = True

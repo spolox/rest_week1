@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.mixins import RetrieveModelMixin
+from rest_framework import mixins
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
@@ -9,7 +9,7 @@ from .paginations import CartItemLimitOffsetPagination
 from .serializers import CartSerializer, CartItemSerializer
 
 
-class CartViewSet(RetrieveModelMixin, GenericViewSet):
+class CartViewSet(mixins.RetrieveModelMixin, GenericViewSet):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
     authentication_classes = [TokenAuthentication]
@@ -19,7 +19,8 @@ class CartViewSet(RetrieveModelMixin, GenericViewSet):
         return get_object_or_404(Cart, user=self.request.user)
 
 
-class CartItemViewSet(ModelViewSet):
+class CartItemViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
+                      mixins.DestroyModelMixin, mixins.UpdateModelMixin, GenericViewSet):
     queryset = CartItem.objects.all()
     serializer_class = CartItemSerializer
     pagination_class = CartItemLimitOffsetPagination

@@ -10,9 +10,10 @@ from .serializers import ItemSerializer
 
 
 class ItemViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
-    queryset = Item.objects.get_queryset().order_by('id')
+    queryset = Item.objects.get_queryset()
     serializer_class = ItemSerializer
     pagination_class = ItemPageNumberPagination
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = ItemFilter
+    ordering = ['id']
     ordering_fields = ['price']

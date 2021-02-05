@@ -9,12 +9,10 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'username', 'email', 'password', 'first_name', 'last_name',
                   'middle_name', 'phone', 'address']
+        read_only_fields = ['id', 'username']
         extra_kwargs = {
-            'id': {'read_only': True},
-            'username': {'read_only': True},
             'email': {
                 'required': True,
-                'validators': [UniqueValidator(queryset=User.objects.all())],
             },
             'password': {
                 'write_only': True,
@@ -43,12 +41,15 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     def update(self, instance, validated_data):
-        for attr, value in validated_data.items():
-            if attr == 'password':
-                instance.set_password(value)
-            else:
-                if attr == 'email':
-                    setattr(instance, 'username', value.split('@')[0])
-                setattr(instance, attr, value)
+        if 'password' in validated_data:
+            instance.set_password(validated_data['password'])
+        if 'email' in validated_data:
+            instance.username = validated_data['email'].split('@')[0]
+            instance.email = validated_data['email']
+        instance.first_name = validated_data.get('first_name', instance.first_name)
+        instance.last_name = validated_data.get('last_name', instance.last_name)
+        instance.middle_name = validated_data.get('middle_name', instance.middle_name)
+        instance.phone = validated_data.get('phone', instance.phone)
+        instance.address = validated_data.get('address', instance.address)
         instance.save()
         return instance
