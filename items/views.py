@@ -1,21 +1,19 @@
-from django.shortcuts import get_object_or_404
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
+from rest_framework.viewsets import GenericViewSet
 
+from .filters import ItemFilter
 from .models import Item
+from .paginations import ItemPageNumberPagination
+from .serializers import ItemSerializer
 
 
-@api_view(http_method_names=['GET'])
-def item_detail(request, pk):
-    item = get_object_or_404(Item, pk=pk)
-
-    item_as_json = {
-        "id": item.pk,
-        "title": item.title,
-        "description": item.description,
-        "image": request.build_absolute_uri(item.image.url),
-        "weight": item.weight,
-        "price": f'{item.price:.2f}',
-    }
-
-    return Response(item_as_json)
+class ItemViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
+    queryset = Item.objects.get_queryset()
+    serializer_class = ItemSerializer
+    pagination_class = ItemPageNumberPagination
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_class = ItemFilter
+    ordering = ['id']
+    ordering_fields = ['price']

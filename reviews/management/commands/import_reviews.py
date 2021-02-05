@@ -22,11 +22,11 @@ class Command(BaseCommand):
             "id": {"type": "integer"},
             "author": {"type": "integer"},
             "content": {"type": "string"},
-            "created_at ": {"type": "string"},
+            "created_at": {"type": "string"},
             "published_at": {"type": "string"},
             "status": {"type": "string"},
         },
-        "required": ["id", "author", "content", "created_at ", "published_at", "status"],
+        "required": ["id", "author", "content", "created_at", "published_at", "status"],
     }
 
     def add_arguments(self, parser):
@@ -64,7 +64,7 @@ class Command(BaseCommand):
                     pk=json_review['id'],
                     author=User.objects.get(pk=json_review['author']),
                     text=json_review['content'],
-                    created_at=self.get_time_created_at(json_review['created_at ']),
+                    created_at=self.get_time_created_at(json_review['created_at']),
                     published_at=self.get_time_published_at(json_review['published_at']),
                     status=json_review['status'],
                 )
