@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import mixins
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.viewsets import GenericViewSet, ModelViewSet
+from rest_framework.viewsets import GenericViewSet
 
 from .models import Cart, CartItem
 from .paginations import CartItemLimitOffsetPagination
