@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter
 from .views import CartViewSet, CartItemViewSet
 
 router = DefaultRouter()
-router.register('items', CartItemViewSet, basename='cart_items')
+router.register(r'items', CartItemViewSet, basename='cart_items')
 
 urlpatterns = [
     path(r'', CartViewSet.as_view({'get': 'retrieve'}), name='cart'),

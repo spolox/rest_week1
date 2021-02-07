@@ -16,7 +16,7 @@ class CartViewSet(mixins.RetrieveModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_object(self):
-        return get_object_or_404(Cart, user=self.request.user)
+        return self.request.user.my_cart
 
 
 class CartItemViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
@@ -28,9 +28,9 @@ class CartItemViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        queryset = get_object_or_404(Cart, user=self.request.user)
+        queryset = self.request.user.my_cart
         return queryset.cart_items.all()
 
     def get_object(self):
-        queryset = get_object_or_404(Cart, user=self.request.user)
+        queryset = self.request.user.my_cart
         return get_object_or_404(queryset.cart_items, pk=self.kwargs['pk'])
