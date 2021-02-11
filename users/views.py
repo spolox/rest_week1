@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSerializer
 
 
-class UserRegisterCreateAPIVIew(CreateAPIView):
+class UserRegisterCreateAPIView(CreateAPIView):
     serializer_class = UserSerializer
 
 
