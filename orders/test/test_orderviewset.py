@@ -522,7 +522,6 @@ class OrderViewSetListTestCase(APITestCase):
             self.assertEqual(response_item['price'], item_data['price'])
 
         # good data
-
         order_raw = {
             'address': 'Sssootttt',
         }
