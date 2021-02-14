@@ -8,7 +8,8 @@ from items.serializers import ItemSerializer
 class CartItemSerializer(serializers.ModelSerializer):
     item = ItemSerializer(read_only=True)
     item_id = serializers.PrimaryKeyRelatedField(source='item', queryset=Item.objects.all())
-    total_price = serializers.DecimalField(decimal_places=2, max_digits=8)
+    total_price = serializers.DecimalField(decimal_places=2, max_digits=8, read_only=True)
+    quantity = serializers.IntegerField(min_value=1)
 
     class Meta:
         model = CartItem

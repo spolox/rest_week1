@@ -19,7 +19,7 @@ class CartViewSet(mixins.RetrieveModelMixin, GenericViewSet):
         return self.request.user.my_cart
 
 
-class CartItemViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
+class CartItemViewSet(mixins.RetrieveModelMixin, mixins.ListModelMixin, mixins.CreateModelMixin,
                       mixins.DestroyModelMixin, mixins.UpdateModelMixin, GenericViewSet):
     queryset = CartItem.objects.all()
     serializer_class = CartItemSerializer

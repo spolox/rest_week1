@@ -1,7 +1,6 @@
-from datetime import datetime
-
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
@@ -23,7 +22,7 @@ class Review(models.Model):
 
     def save(self, *args, **kwargs):
         if self.status == self.StatusChoices.PUBLISHED and self.published_at is None:
-            self.published_at = datetime.now()
+            self.published_at = timezone.now()
         super(Review, self).save(*args, **kwargs)
 
     def __str__(self):

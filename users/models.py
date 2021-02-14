@@ -10,9 +10,6 @@ class User(AbstractUser):
     phone = PhoneNumberField()
     address = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.username
-
     @property
     def my_cart(self):
         cart, _ = Cart.objects.filter(user=self, order=None).get_or_create(user=self)

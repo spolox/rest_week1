@@ -17,7 +17,7 @@ ITEMS_CACHE_TTL = 60 * 5
 
 
 class ItemViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, GenericViewSet):
-    queryset = Item.objects.get_queryset()
+    queryset = Item.objects.all()
     serializer_class = ItemSerializer
     pagination_class = ItemPageNumberPagination
     filter_backends = [DjangoFilterBackend, OrderingFilter]
