@@ -445,6 +445,7 @@ class CartItemViewSetEmptyCartTestCase(APITestCase):
         cart = Cart.objects.get()
         self.assertEqual(cart.user, self.user)
 
+
 class CartItemViewSetPaginationTestCase(APITestCase):
     @classmethod
     def setUpTestData(cls):
