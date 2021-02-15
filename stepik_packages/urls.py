@@ -34,6 +34,8 @@ urlpatterns_api = [
     path('users/', include('users.urls')),
     path('items/', include('items.urls')),
     path('carts/', include('carts.urls')),
+    path('orders/', include('orders.urls')),
+    path('reviews/', include('reviews.urls')),
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0)),
 ]
 

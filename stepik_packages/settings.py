@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'users',
     'items',
     'carts',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -86,6 +87,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
+    'EXCEPTION_HANDLER': 'stepik_packages.exceptions.custom_authentication_exception_handler',
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
 
 # Database

@@ -1,13 +1,14 @@
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
 class Review(models.Model):
     class StatusChoices(models.TextChoices):
-        PUBLISHED = 'published', _('Published')
-        NEW = 'new', _('New')
-        HIDDEN = 'hidden', _('Hidden')
+        PUBLISHED = 'published', _('published')
+        NEW = 'new', _('new')
+        HIDDEN = 'hidden', _('hidden')
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     text = models.TextField()
@@ -18,6 +19,11 @@ class Review(models.Model):
         choices=StatusChoices.choices,
         default=StatusChoices.NEW,
     )
+
+    def save(self, *args, **kwargs):
+        if self.status == self.StatusChoices.PUBLISHED and self.published_at is None:
+            self.published_at = timezone.now()
+        super(Review, self).save(*args, **kwargs)
 
     def __str__(self):
         return f'Review of {self.author}'

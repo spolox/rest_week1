@@ -1,0 +1,3 @@
+[run]
+source = reviews, items, users, carts, users, orders
+omit = *migrations*, *venv*, *management*, *apps.py*, *test*

@@ -1,11 +1,11 @@
 from django.urls import include, path
 from rest_framework.authtoken.views import obtain_auth_token
 
-from .views import UserCurrentRetrieveUpdateAPIView, UserRegisterCreateAPIVIew
+from .views import UserCurrentRetrieveUpdateAPIView, UserRegisterCreateAPIView
 
 urlpatterns_auth = [
     path('login', obtain_auth_token, name='login'),
-    path('register', UserRegisterCreateAPIVIew.as_view(), name='register'),
+    path('register', UserRegisterCreateAPIView.as_view(), name='register'),
 ]
 
 urlpatterns = [
