@@ -24,8 +24,6 @@ class CartItemViewSetTestCase(APITestCase):
                 price=500,
         )
         self.user = User.objects.create(username='vanya')
-        self.user.set_password('12345678')
-        self.user.save()
         cart = self.user.my_cart
         self.cart_item = CartItem.objects.create(
             item=self.item,
@@ -392,8 +390,6 @@ class CartItemViewSetDestroyTestCase(APITestCase):
             price=500,
         )
         self.user = User.objects.create(username='vanya')
-        self.user.set_password('12345678')
-        self.user.save()
         cart = self.user.my_cart
         self.cart_item = CartItem.objects.create(
             item=self.item,
@@ -435,8 +431,6 @@ class CartItemViewSetEmptyCartTestCase(APITestCase):
         cls.url = reverse('cartitems-list')
         cls.factory = APIRequestFactory()
         cls.user = User.objects.create(username='vanya')
-        cls.user.set_password('12345678')
-        cls.user.save()
 
     def setUp(self):
         self.view = resolve(self.url).func.cls.as_view(actions={'get': 'list'})
